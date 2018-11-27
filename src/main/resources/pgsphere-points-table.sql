@@ -7,3 +7,5 @@ INSERT INTO points VALUES (2, '(10d, 0d)');
 INSERT INTO points VALUES (3, '( 0d,10d)');
 /* View the successful insertions */
 select * from points;
+
+CREATE TABLE images (imgname text, img bytea);
