@@ -1,7 +1,7 @@
 package org.csw.db.connection
 
 import slick.jdbc.PostgresProfile.api._
-import slick.jdbc.{PostgresProfile, SQLActionBuilder, SetParameter}
+import slick.jdbc.{PostgresProfile, SQLActionBuilder}
 import slick.util.Logging
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -17,8 +17,12 @@ object JdbcInterop extends Logging {
     // ****** example 1: select query *******
 
     val movieName = "DDLJ"
+
+    val ss: String = s"select name from films where name = $movieName"
+
     val sql: SQLActionBuilder =
       sql"select name from films where name = $movieName"
+
     val action: DBIO[Option[String]] = sql.as[String].headOption
     val resultF: Future[Option[String]] = db.run(action)
     val result = Await.result(resultF, 10.seconds)
@@ -46,7 +50,7 @@ object JdbcInterop extends Logging {
         }
       case Failure(ex) =>
         // do log
-        ex.printStackTrace
+        ex.printStackTrace()
     }
 
     // --------------------------------------
@@ -58,7 +62,7 @@ object JdbcInterop extends Logging {
     val resultF3: Future[Int] = db.run(sql3)
     resultF3.onComplete {
       case Success(numOfRows) => println(numOfRows)
-      case Failure(ex)        => ex.printStackTrace
+      case Failure(ex)        => ex.printStackTrace()
     }
 
     // --------------------------------------
@@ -74,7 +78,7 @@ object JdbcInterop extends Logging {
 
     db.run(insertSuppliers).onComplete {
       case Success(_)  => println("All data inserted successfully")
-      case Failure(ex) => ex.printStackTrace
+      case Failure(ex) => ex.printStackTrace()
     }
 
     // --------------------------------------

@@ -3,22 +3,24 @@ package org.csw.db;
 
 import org.csw.db.connection.JdbcJavaImpl;
 import scala.runtime.BoxedUnit;
+import slick.jdbc.PositionedResult;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class JdbcInterop {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
 
         // ****** example 1: select query *******
 //
         String movieName = "DDLJ";
 
-        CompletableFuture<List<String>> completableFuture = JdbcJavaImpl.executeQuery("select name from films where name = '" + movieName + "'", pr -> {
-            return pr.nextString();
-        });
+        CompletableFuture<List<String>> completableFuture =
+                JdbcJavaImpl.executeQuery(
+                        "select name from films where name = '" + movieName + "'",
+                        PositionedResult::nextString
+                );
 
         completableFuture
                 .exceptionally(ex -> {
@@ -33,7 +35,8 @@ public class JdbcInterop {
 
         // ****** example 2: select query *******
 
-        CompletableFuture<Integer> completableFuture1 = JdbcJavaImpl.execute("drop table if exists person; create table person(id serial primary key, name varchar(50), address varchar(50))");
+        CompletableFuture<Integer> completableFuture1 =
+                JdbcJavaImpl.execute("drop table if exists person; create table person(id serial primary key, name varchar(50), address varchar(50))");
         completableFuture1
                 .exceptionally(ex -> {
                     // do logging
