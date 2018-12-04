@@ -4,12 +4,12 @@
             <pattern>*** \(%logger{30}\)%green(%X{debugId}) %msg%n</pattern>
         </encoder>
     </appender>
-    <root level="${log.root:-info}">
+    <root level="${log.root:-debug}">
         <appender-ref ref="STDOUT" />
     </root>
-    <logger name="slick.basic.BasicBackend.action"          level="${log.action:-info}" />
-    <logger name="slick.basic.BasicBackend.stream"          level="${log.stream:-info}" />
-    <logger name="slick.compiler"                           level="${log.qcomp:-info}" />
+    <logger name="slick.basic.BasicBackend.action"          level="${log.action:-debug}" />
+    <logger name="slick.basic.BasicBackend.stream"          level="${log.stream:-debug}" />
+    <logger name="slick.compiler"                           level="${log.qcomp:-debug}" />
     <logger name="slick.compiler.QueryCompiler"             level="${log.qcomp.phases:-inherited}" />
     <logger name="slick.compiler.QueryCompilerBenchmark"    level="${log.qcomp.bench:-inherited}" />
     <logger name="slick.compiler.Inline"                    level="${log.qcomp.inline:-inherited}" />
@@ -41,12 +41,12 @@
     <logger name="slick.compiler.RemoveFieldNames"          level="${log.qcomp.removeFieldNames:-inherited}" />
     <logger name="slick.compiler.InsertCompiler"            level="${log.qcomp.insertCompiler:-inherited}" />
     <logger name="slick.compiler.VerifyTypes"               level="${log.qcomp.verifyTypes:-inherited}" />
-    <logger name="slick.jdbc.DriverDataSource"              level="${log.jdbc.driver:-info}" />
-    <logger name="slick.jdbc.JdbcBackend.statement"         level="${log.jdbc.statement:-info}" />
-    <logger name="slick.jdbc.JdbcBackend.parameter"         level="${log.jdbc.parameter:-info}" />
-    <logger name="slick.jdbc.JdbcBackend.benchmark"         level="${log.jdbc.bench:-info}" />
-    <logger name="slick.jdbc.StatementInvoker.result"       level="${log.jdbc.result:-info}" />
-    <logger name="slick.jdbc.JdbcModelBuilder"              level="${log.createModel:-info}" />
+    <logger name="slick.jdbc.DriverDataSource"              level="${log.jdbc.driver:-debug}" />
+    <logger name="slick.jdbc.JdbcBackend.statement"         level="${log.jdbc.statement:-debug}" />
+    <logger name="slick.jdbc.JdbcBackend.parameter"         level="${log.jdbc.parameter:-debug}" />
+    <logger name="slick.jdbc.JdbcBackend.benchmark"         level="${log.jdbc.bench:-debug}" />
+    <logger name="slick.jdbc.StatementInvoker.result"       level="${log.jdbc.result:-debug}" />
+    <logger name="slick.jdbc.JdbcModelBuilder"              level="${log.createModel:-debug}" />
     <logger name="slick.memory.HeapBackend"                 level="${log.heap:-inherited}" />
     <logger name="slick.memory.QueryInterpreter"            level="${log.interpreter:-inherited}" />
     <logger name="slick.relational.ResultConverterCompiler" level="${log.resultConverter:-inherited}" />

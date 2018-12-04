@@ -2,6 +2,7 @@ package org.csw.db.connection
 
 import slick.jdbc.PostgresProfile.api._
 import slick.jdbc.{PostgresProfile, SQLActionBuilder}
+import slick.sql.SqlAction
 import slick.util.Logging
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -20,12 +21,11 @@ object JdbcInterop extends Logging {
 
     val ss: String = s"select name from films where name = $movieName"
 
-    val sql: SQLActionBuilder =
-      sql"select name from films where name = $movieName"
+    val sql: SQLActionBuilder = sql"select name from films where name = $movieName"
 
-    val action: DBIO[Option[String]] = sql.as[String].headOption
+    val action: DBIO[Option[String]]    = sql.as[String].headOption
     val resultF: Future[Option[String]] = db.run(action)
-    val result = Await.result(resultF, 10.seconds)
+    val result                          = Await.result(resultF, 10.seconds)
     println(result)
 
 //    val sql66: SQLActionBuilder =
@@ -39,8 +39,8 @@ object JdbcInterop extends Logging {
 
     // ****** example 2: select query *******
 
-    val sql2: SQLActionBuilder = sql"select name from films"
-    val action2: DBIO[Seq[String]] = sql2.as[String]
+    val sql2: SQLActionBuilder        = sql"select name from films"
+    val action2: DBIO[Seq[String]]    = sql2.as[String]
     val resultF2: Future[Seq[String]] = db.run(action2)
     resultF2.onComplete {
       case Success(seq) =>
@@ -69,11 +69,15 @@ object JdbcInterop extends Logging {
 
     // ****** example 3: insert statement query *******
 
+    val dd = "Acme, Inc."
+    val ee = "blah"
+    val ff = "The High Ground"
     val insertSuppliers: DBIO[Unit] = DBIO.seq(
       // Insert some suppliers
-      sqlu"insert into person(name, address) values('Acme, Inc.', '99 Market Street')",
+      sqlu"insert into person(name, address) values($dd, '99 Market Street')",
       sqlu"insert into person(name, address) values('Superior Coffee', '1 Party Place')",
-      sqlu"insert into person(name, address) values('The High Ground', '100 Coffee Lane')"
+      sqlu"insert into person(name, address) values('The High Ground', '100 Coffee Lane')",
+      sqlu"update person set name = $ee where name = $ff"
     )
 
     db.run(insertSuppliers).onComplete {

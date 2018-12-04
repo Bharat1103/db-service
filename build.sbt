@@ -10,5 +10,6 @@ libraryDependencies ++= Seq(
   "com.typesafe.slick" %% "slick" % "3.2.3",
   "ch.qos.logback" % "logback-classic" % "1.2.3",
   "com.typesafe.slick" %% "slick-hikaricp" % "3.2.3",
-  "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.0"
+  "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.0",
+  "org.jooq" % "jooq" % "3.11.7"
 )
